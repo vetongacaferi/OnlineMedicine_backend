@@ -1,0 +1,1 @@
+﻿Scaffold-DbContext "Server=DESKTOP-F831UR2\SQLEXPRESS2014;Database=dbOnlineMedicine;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -force
