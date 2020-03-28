@@ -125,13 +125,19 @@ namespace OnlineMedicine_api.Models
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
+                entity.Property(e => e.City).HasMaxLength(50);
+
                 entity.Property(e => e.Email).HasMaxLength(256);
 
                 entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
 
                 entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
 
+                entity.Property(e => e.State).HasMaxLength(50);
+
                 entity.Property(e => e.UserName).HasMaxLength(256);
+
+                entity.Property(e => e.ZipCode).HasMaxLength(50);
             });
 
             modelBuilder.Entity<AspNetUserTokens>(entity =>
