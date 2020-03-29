@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using OnlineMedicine_api.DTOs;
 using OnlineMedicine_api.Identity;
 using OnlineMedicine_api.Interfaces;
@@ -23,28 +24,58 @@ namespace OnlineMedicine_api.Controllers
             _userManager = userManager;
         }
 
-        [HttpPost("GetProfile/{id}")]
-        public async Task<IActionResult> GetProfile(string id)
+        [HttpPost("GetProfile")]
+        public async Task<IActionResult> GetProfile([FromBody]UserProfile value)
         {
-            var user = await _userManager.FindByIdAsync(id);
+            var user = await _profileRepository.GetUserProfile(value.Id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
 
             ProfileDto profile = new ProfileDto()
             {
+                username = user.UserName,
+                firstname = user.FirstName,
+                lastname = user.LastName,
+                city = user.City,
+                state = user.State,
+                zipcode = user.ZipCode
             };
 
-            return Ok();
+            return Ok(profile);
         }
 
-        [HttpPost("UpdateProfile")]
-        public async Task<IActionResult> UpdateProfile([FromBody]ProfileDto model)
+        [HttpPut("UpdateProfile")]
+        public async Task<IActionResult> UpdateProfile([FromBody]ProfileUpdate model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
+            var user = await _profileRepository.GetUserProfile(model.id);
 
+            if (user == null)
+            {
+                return BadRequest();
+            }
 
-            return Ok();
+            user.FirstName = model.firstname;
+            user.LastName = model.lastname;
+            user.UserName = model.username;
+            user.City = model.city;
+            user.State = model.state;
+            user.ZipCode = model.zipcode;
+
+            _profileRepository.UpdateUserProfile(user);
+
+            if (_profileRepository.SaveChanges() > 0)
+            {
+                return Ok();
+            }
+
+            return BadRequest();
 
         }
     }
