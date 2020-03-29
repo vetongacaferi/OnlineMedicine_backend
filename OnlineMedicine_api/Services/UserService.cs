@@ -81,6 +81,7 @@ namespace OnlineMedicine_api.Services
                 };
 
                 var token = tokenHandler.CreateToken(tokenDescriptor);
+                _user.Id = user.Id;
                 _user.Token = tokenHandler.WriteToken(token);
                 _user.Role = Role.Admin;
                 _user.Username = user.UserName;
