@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using OnlineMedicine_api.DTOs;
 using OnlineMedicine_api.Identity;
 using OnlineMedicine_api.Interfaces;
+using OnlineMedicine_api.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,11 +18,13 @@ namespace OnlineMedicine_api.Controllers
     {
         private IProfileRepository _profileRepository;
         private UserManager<ApplicationUser> _userManager;
+        private IFileUploadService _fileuploadService;
 
-        public ProfileController(IProfileRepository profileRepository, UserManager<ApplicationUser> userManager)
+        public ProfileController(IProfileRepository profileRepository, UserManager<ApplicationUser> userManager, IFileUploadService fileuploadService)
         {
             _profileRepository = profileRepository;
             _userManager = userManager;
+            _fileuploadService = fileuploadService;
         }
 
         [HttpPost("GetProfile")]
@@ -41,7 +44,8 @@ namespace OnlineMedicine_api.Controllers
                 lastname = user.LastName,
                 city = user.City,
                 state = user.State,
-                zipcode = user.ZipCode
+                zipcode = user.ZipCode,
+                file = user.Image
             };
 
             return Ok(profile);
@@ -61,12 +65,30 @@ namespace OnlineMedicine_api.Controllers
                 return BadRequest();
             }
 
+
+            
             user.FirstName = model.firstname;
             user.LastName = model.lastname;
             user.UserName = model.username;
             user.City = model.city;
             user.State = model.state;
             user.ZipCode = model.zipcode;
+
+
+            if (model.file.Length > 0)
+            {
+                string fileupload = _fileuploadService.FileUpload(model.file);
+                if (fileupload != "")
+                {
+                    user.Image = fileupload;
+                }
+            }
+            else
+            {
+                user.Image = "";
+            }
+
+          
 
             _profileRepository.UpdateUserProfile(user);
 

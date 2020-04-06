@@ -33,6 +33,7 @@ namespace OnlineMedicine_api.Models
         public string City { get; set; }
         public string State { get; set; }
         public string ZipCode { get; set; }
+        public string Image { get; set; }
 
         public ICollection<AspNetUserClaims> AspNetUserClaims { get; set; }
         public ICollection<AspNetUserLogins> AspNetUserLogins { get; set; }
