@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace OnlineMedicine_api.DTOs
         public string city { get; set; }
         public string state { get; set; }
         public string zipcode { get; set; }
+        public string file { get; set; }
     }
 
     public class ProfileUpdate
@@ -24,5 +26,6 @@ namespace OnlineMedicine_api.DTOs
         public string city { get; set; }
         public string state { get; set; }
         public string zipcode { get; set; }
+        public string file { get; set; }
     }
 }

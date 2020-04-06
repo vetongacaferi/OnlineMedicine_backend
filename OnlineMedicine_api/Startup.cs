@@ -79,6 +79,7 @@ namespace OnlineMedicine_api
 
             // configure DI for application services
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IFileUploadService, FileUploadService>();
             services.AddScoped<IProfileRepository, ProfileRepository>();
             services.AddScoped<IPharmacyRepository, PharmacyRepository>();
             services.AddScoped<IMedicineRepository, MedicineRepository>();
