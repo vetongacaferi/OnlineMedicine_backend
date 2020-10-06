@@ -83,7 +83,9 @@ namespace OnlineMedicine_api.Controllers
             var pharmacyResult = new Pharmacy()
             {
                 PharmacyName = model.PharmacyName,
-                Photo = model.Photo
+                Photo = model.Photo,
+                Latitude = model.Latitude,
+                Longitude = model.Longitude
             };
 
             _pharmacyRepository.AddPharmacy(pharmacyResult);

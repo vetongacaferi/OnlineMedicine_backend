@@ -9,5 +9,7 @@ namespace OnlineMedicine_api.DTOs
     {
         public string PharmacyName { get; set; }
         public string Photo { get; set; }
+        public string Latitude { get; set; }
+        public string Longitude { get; set; }
     }
 }
