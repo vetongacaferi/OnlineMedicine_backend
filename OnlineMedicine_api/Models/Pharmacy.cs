@@ -14,6 +14,8 @@ namespace OnlineMedicine_api.Models
         public string PharmacyName { get; set; }
         public string Photo { get; set; }
         public int? AddressId { get; set; }
+        public string Latitude { get; set; }
+        public string Longitude { get; set; }
 
         public Address Address { get; set; }
         public ICollection<PharmacyMedicines> PharmacyMedicines { get; set; }
